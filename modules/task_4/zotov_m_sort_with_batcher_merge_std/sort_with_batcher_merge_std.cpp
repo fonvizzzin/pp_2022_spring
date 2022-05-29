@@ -47,7 +47,6 @@ void  radixSort(std::vector<int>* main_data, int size, int offset) {
 
         int iter = 0;
         for (int i = 0; i < 19; i++) {
-            //std::cout << "hi " << "my size = " << size << "my offset = " << offset << std::endl;
             for (int j = 0; j < static_cast<int>(sorted_data[i].size()); j++) {
                 (*main_data)[offset + iter] = sorted_data[i][j];
                 iter++;
@@ -71,8 +70,7 @@ void splitData(std::vector<int>* data, std::vector<int>* first, int f, int f_dis
         if ((*data)[f] < (*data)[s]) {
             first->push_back((*data)[f]);
             f += 2;
-        }
-        else {
+        } else {
             first->push_back((*data)[s]);
             s += 2;
         }
@@ -82,8 +80,7 @@ void splitData(std::vector<int>* data, std::vector<int>* first, int f, int f_dis
         for (int j = s; j < s_displ; j += 2) {
             first->push_back((*data)[j]);
         }
-    }
-    else if (s >= s_displ) {
+    } else if (s >= s_displ) {
         for (int j = f; j < f_displ; j += 2) {
             first->push_back((*data)[j]);
         }
@@ -151,7 +148,7 @@ void parallelRadixSort(std::vector<int>* data, int size, int number_threads) {
 
     std::vector<std::thread> threads(number_threads);
     for (int i = 0; i < number_threads; i++) {
-        threads[i] = std::thread(radixSort,data, sendCount[i], displ[i]);
+        threads[i] = std::thread(radixSort, data, sendCount[i], displ[i]);
     }
 
     for (int i = 0; i < number_threads; i++) {
@@ -176,8 +173,7 @@ void parallelRadixSort(std::vector<int>* data, int size, int number_threads) {
             sendCount[(number_threads - 1) / 2] = sendCount[number_threads - 1];
             displ[(number_threads - 1) / 2] = displ[number_threads - 1];
             number_threads = number_threads / 2 + 1;
-        }
-        else {
+        } else {
             number_threads /= 2;
         }
     }
